@@ -17,7 +17,7 @@ entity Employees : cuid, managed {
     country   : String;
     county    : String;
     zipcode   : Integer;
-    salary    : Integer;
+    salary    : String;
     emprole  : Association to Roles;
 
 }

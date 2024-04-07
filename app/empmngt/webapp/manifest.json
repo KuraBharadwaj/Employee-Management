@@ -27,9 +27,9 @@
     },
     "crossNavigation": {
       "inbounds": {
-        "employee-view": {
+        "employee-display": {
           "semanticObject": "employee",
-          "action": "view",
+          "action": "display",
           "title": "{{flpTitle}}",
           "subTitle": "{{flpSubtitle}}",
           "signature": {
