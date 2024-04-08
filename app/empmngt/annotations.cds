@@ -257,3 +257,17 @@ annotate service.Employees with @(
             },],
     }
 );
+annotate service.Roles with {
+    title @(Common.ValueList : {
+            $Type : 'Common.ValueListType',
+            CollectionPath : 'Roles',
+            Parameters : [
+                {
+                    $Type : 'Common.ValueListParameterInOut',
+                    LocalDataProperty : title,
+                    ValueListProperty : 'title',
+                },
+            ],
+            Label : 'Role Title',
+        },
+        Common.ValueListWithFixedValues : true)};
