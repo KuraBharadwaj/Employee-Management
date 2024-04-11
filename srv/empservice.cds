@@ -7,4 +7,7 @@ service EmpService {
 
     entity Roles as projection on em.Roles;
     annotate Roles with @odata.draft.enabled;
+
+    //Make the Businesspartner readOnly. 
+    @readonly entity BusinessPartners as projection on em.BusinessPartners;
 }

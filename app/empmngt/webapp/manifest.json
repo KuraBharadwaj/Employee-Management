@@ -97,7 +97,6 @@
       "css": []
     },
     "routing": {
-      "config": {},
       "routes": [
         {
           "pattern": ":?query:",
@@ -123,6 +122,24 @@
                 "Employees": {
                   "detail": {
                     "route": "EmployeesObjectPage"
+                  }
+                }
+              },
+              "controlConfiguration": {
+                "@com.sap.vocabularies.UI.v1.LineItem": {
+                  "columns": {
+                    "DataField::firstname": {
+                      "width": "16.67%"
+                    },
+                    "DataField::lastname": {
+                      "width": "16.67%"
+                    },
+                    "DataField::salary": {
+                      "width": "16.67%"
+                    },
+                    "DataFieldForAnnotation::DataPoint::rating": {
+                      "width": "16.67%"
+                    }
                   }
                 }
               }
