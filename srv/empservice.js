@@ -24,6 +24,25 @@ module.exports = cds.service.impl(async function () {
             }
         });
     });
+
+    //Implement the logic to use the api-key in .env file and call the Business Partner Values. 
+    //Declare a constant by connecting to the service through csn
+    const BPsrv = await cds.connect.to("API_BUSINESS_PARTNER");
+
+    // Each request to the API requires a key in the header. 
+    this.on("READ",'BusinessPartners',async (req)=>{
+        //filter the values with firstname and lastname. 
+        //add a querey to the request
+        req.query.where("LastName <> '' and FirstName <> ''").limit(10);
+
+        //Connect to the API, using BPsrv constant variable and pass the query and apikey in headers. 
+        return await BPsrv.transaction(req).send({
+            query : req.query,
+            headers: {
+                apikey : process.env.apikey,
+            },
+        });
+    });
 });
 
 
