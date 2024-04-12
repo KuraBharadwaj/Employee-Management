@@ -135,10 +135,16 @@
                       "width": "16.67%"
                     },
                     "DataField::salary": {
-                      "width": "16.67%"
+                      "width": "16%"
                     },
                     "DataFieldForAnnotation::DataPoint::rating": {
-                      "width": "16.67%"
+                      "width": "16%"
+                    },
+                    "DataFieldForAnnotation::bp::Contact::contact1": {
+                      "width": "20%"
+                    },
+                    "DataField::email": {
+                      "width": "16%"
                     }
                   }
                 }

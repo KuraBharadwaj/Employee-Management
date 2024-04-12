@@ -17,11 +17,6 @@ annotate service.Employees with @(UI.LineItem: [
         Value: email,
     },
     {
-        $Type : 'UI.DataFieldForAnnotation',
-        Target : '@Communication.Contact#contact',
-        Label : 'Phone',
-    },
-    {
         $Type : 'UI.DataField',
         Value : salary,
         Label : 'Salary',
@@ -31,6 +26,11 @@ annotate service.Employees with @(UI.LineItem: [
         $Type : 'UI.DataFieldForAnnotation',
         Target : '@UI.DataPoint#rating',
         Label : 'Rating',
+    },
+    {
+        $Type : 'UI.DataFieldForAnnotation',
+        Target : 'bp/@Communication.Contact#contact1',
+        Label : 'IT Manager',
     },
 ],
  UI.DataPoint #EmployeeRatingDataPoint : {
@@ -302,5 +302,23 @@ annotate service.Employees with @(
     Communication.Contact #contact : {
         $Type : 'Communication.ContactType',
         fn : phone,
+    }
+);
+annotate service.BusinessPartners with @(
+    Communication.Contact #contact : {
+        $Type : 'Communication.ContactType',
+        fn : FullName,
+    }
+);
+annotate service.Employees with @(
+    Communication.Contact #contact1 : {
+        $Type : 'Communication.ContactType',
+        fn : bp_BusinessPartner,
+    }
+);
+annotate service.BusinessPartners with @(
+    Communication.Contact #contact1 : {
+        $Type : 'Communication.ContactType',
+        fn : FullName,
     }
 );
