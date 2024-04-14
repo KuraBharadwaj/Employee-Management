@@ -1,0 +1,83 @@
+_schema-version: '3.1'
+ID: employee-management
+version: 3.0.0
+description: "IT8010 Project - Bharadwaj Kura"
+parameters:
+  enable-parallel-deployments: true
+build-parameters:
+  before-all:
+    - builder: custom
+      commands:
+        - npm ci
+        - npx cds build --production
+
+modules:
+  - name: employee-management-srv
+    type: nodejs
+    path: gen/srv
+    parameters:
+      buildpack: nodejs_buildpack
+    build-parameters:
+      builder: npm
+    provides:
+      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
+    requires:
+      - name: employee-management-destination
+      - name: employee-management-db
+  - name: employee-management-db-deployer
+    type: hdb
+    path : gen/db
+    parameters:
+      buildpack: nodejs_buildpack
+    requires:
+      - name: employee-management-db
+  - name: employee-management
+    type: aprouter.nodejs
+    path: app/ #from cds.env.folders. 
+    parameters:
+      keep-existing-routes: true
+      disk-quota: 256M
+      memory: 256M
+    requires:
+      - name: srv-api
+        group: destinations
+        properties:
+          name: srv-api #must be used in xs-app.json as well
+          url: ~{srv-url}
+          forwardAuthToken: true
+      - name: employee-management-srv
+
+resources:
+  - name: employee-management-destination
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: destination
+      service-plan: lite
+  - name: employee-management-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: service-manager
+      service-plan: container
+  - name: employee-management-auth
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: xsuaa
+      service-plan: application
+      path: ./xs-security.json
+      config: 
+        xsappname: employee-management-${org}-${space}
+        tenant-mode: dedicated
+        role-collections: 
+        - name: 'EmployeeAdmin-${org}-${space}'
+          description: Manage Employees
+          role-template-references:
+          - $XSAPPNAME.EmployeeAdmin
+        - name: 'EmployeeViewer-${org}-${space}'
+          description: View Employees
+          role-template-references: 
+          - $XSAPPNAME.EmployeeViewer
+        oauth2-configuration: 
+          redirect-uris:
+            - https://employee-management-approuter.cfapps.us10-001.hana.ondemand.com/login/callback

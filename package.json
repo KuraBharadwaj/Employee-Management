@@ -1,5 +1,5 @@
 {
-  "name": "risk-management",
+  "name": "employee-management",
   "version": "3.0.0",
   "description": "Template for the Learning Journey Building side-by-side extensions on SAP BTP",
   "author": "m.haug@sap.com",
@@ -16,6 +16,7 @@
   },
   "devDependencies": {
     "@cap-js/sqlite": "^1",
+    "@sap/cds-dk": "^7",
     "@sap/ux-specification": "^1.120.7"
   },
   "scripts": {
