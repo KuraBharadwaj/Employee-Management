@@ -34,7 +34,7 @@ modules:
     requires:
       - name: employee-management-db
   - name: employee-management
-    type: aprouter.nodejs
+    type: approuter.nodejs
     path: app/ #from cds.env.folders. 
     parameters:
       keep-existing-routes: true
