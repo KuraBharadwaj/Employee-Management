@@ -1,1 +1,31 @@
-{}
+{
+    "[development]": {
+        "auth": {
+            "passport": {
+                "strategy": "mock",
+                "users": {
+                    "employee.viewer@tester.sap.com": {
+                        "password": "initial",
+                        "ID": "employeeviewer",
+                        "userAttributes": {
+                            "email": "employee.viewer@tester.sap.com"
+                        },
+                        "roles": [
+                            "EmployeeViewer"
+                        ]
+                    },
+                    "employee.admin@tester.sap.com": {
+                        "password": "initial",
+                        "ID": "employeeadmin",
+                        "userAttributes": {
+                            "email": "employee.admin@tester.sap.com"
+                        },
+                        "roles": [
+                            "EmployeeAdmin"
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}
