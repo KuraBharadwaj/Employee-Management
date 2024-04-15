@@ -26,6 +26,8 @@ modules:
     requires:
       - name: employee-management-destination
       - name: employee-management-db
+      - name: employee-management-auth
+
   - name: employee-management-db-deployer
     type: hdb
     path : gen/db
@@ -33,6 +35,7 @@ modules:
       buildpack: nodejs_buildpack
     requires:
       - name: employee-management-db
+      
   - name: employee-management
     type: approuter.nodejs
     path: app/ #from cds.env.folders. 
@@ -47,7 +50,7 @@ modules:
           name: srv-api #must be used in xs-app.json as well
           url: ~{srv-url}
           forwardAuthToken: true
-      - name: employee-management-srv
+      - name: employee-management-auth
 
 resources:
   - name: employee-management-destination
@@ -55,11 +58,13 @@ resources:
     parameters:
       service: destination
       service-plan: lite
+
   - name: employee-management-db
     type: com.sap.xs.hdi-container
     parameters:
-      service: service-manager
-      service-plan: container
+      service: hana
+      service-plan: hdi-shared
+
   - name: employee-management-auth
     type: org.cloudfoundry.managed-service
     parameters:
@@ -80,4 +85,4 @@ resources:
           - $XSAPPNAME.EmployeeViewer
         oauth2-configuration: 
           redirect-uris:
-            - https://employee-management-approuter.cfapps.us10-001.hana.ondemand.com/login/callback
+            - https://a27bc52ftrial-dev-employee-management.cfapps.us10-001.hana.ondemand.com/login/callback
